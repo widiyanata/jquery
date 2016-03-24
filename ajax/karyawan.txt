@@ -1,0 +1,4 @@
+Nama Karyawan, Departemen, Gaji
+Ahmad, Marketing, Rp10000
+Bambang, Teknologi, Rp20000
+Aris, Sales, Rp12000

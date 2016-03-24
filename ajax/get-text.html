@@ -1,0 +1,72 @@
+<!--
+# 	Mengambil Teks dari file dan
+# 	menampilkannya menggunakan AJAX
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ambil Data dari File</title>
+
+	<link rel="stylesheet" href="../assets/lib/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/lib/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body>
+
+	<div class="container">
+		<table class="table table-bordered" id="karyawan">
+		   <!-- konten ditampilkan disini -->
+		 </table>
+
+		<!-- Status Ajax -->
+		<div id="status"></div>
+
+		<a id="get" href="#" class="btn btn-primary">Ambil Data</a>
+	</div>
+
+	<!-- jquery -->
+	<script src="../assets/lib/jquery/jquery-2.1.3.min.js"></script>
+
+	<script>
+
+		$(document).ready(function($){
+
+			$("#get").on("click", function(){
+				$.ajax({
+					type: "GET",
+					url: "karyawan.txt",
+					dataType: "text",
+					success: prosesData,
+					error: reportError
+				});
+      });
+
+
+    });
+
+		function prosesData(returnedData, status) {
+			$("#status").append("Status: " + status + "<br>");
+			$("#status").addClass("alert alert-success");
+
+			var records = returnedData.split("\n");
+			for (var i = 0; i < records.length; i++) {
+				var fields = records[i].split(",");
+
+				$("#karyawan").append(
+					"<tr><td>" + fields[0] +
+					"</td><td>" + fields[1] +
+					"</td><td>" + fields[2] +
+					"</td></tr>"
+				);
+			}
+		}
+
+		function reportError(request, status, errorMsg) {
+			$("#status").append("Status: " + status + "<br>Error Message: " + errorMsg);
+			$("#status").addClass("alert alert-warning");
+		}
+
+	</script>
+</body>
+</html>
